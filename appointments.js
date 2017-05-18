@@ -1,8 +1,5 @@
 $(document).ready(function(){
-    
-    
-    
-    $("#submit").click(getAppointments);
+    $("#submit").click(getAppointments($("#submitText").val()));
     
     $("#cancelAdd").click(function(){
         $("#newFields").hide();
@@ -15,7 +12,11 @@ $(document).ready(function(){
             $("#newButton").val("Add");
             $("#newFields").show();
             $("#cancelAdd").show();        
-        }else{
+        }else{// Button is add
+            var dateTime = $("#datetime").val(),
+                desc = $("#desc").val();
+            addAppointment(dateTime, desc);
+            getAppointments(dateTime, desc);
             $("#newButton").val("New");
             $("#newFields").hide();
             $("#cancelAdd").hide();  
@@ -24,21 +25,27 @@ $(document).ready(function(){
     });
 });
 
+function addAppointment(dateTime, desc){
+        $.ajax({
+        type: "POST",
+        dataType : 'application/json',
+        url: "http://localhost:2200/appointments/cgi-bin/add_appointments.cgi",
+        data : {
+            'dateTime' : dateTime,
+            'description' : desc
+            },
+    }).done(function(msg){
+            console.log(msg);
+        });
+}
 
-
-function getAppointments(searchQuery){
+function getAppointments(searchParam){
     $.ajax({
-        type: "GET",
-        url: "/cgi-bin/appointments.cgi",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(data){
-            if (data.error) { // script returned error
-              console.log('error getting db results');
-            } // if
-            else { 
-              console.log('db searched');
-            }
-          }
-    });
-};
+        type: "POST",
+        dataType : 'application/json',
+        url: "http://localhost:2200/appointments/cgi-bin/get_appointments.cgi",
+        data : {'searchParam' : searchParam},
+    }).done(function(msg){
+            console.log(msg);
+        });
+}

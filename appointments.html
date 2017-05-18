@@ -1,7 +1,8 @@
 <!doctype html>
 
 <html lang="en">
-    
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">    
 
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src = "appointments.js"></script>
@@ -16,12 +17,11 @@
     <button hidden= "hidden" id= "cancelAdd">Cancel</button>
     <br>
     <fieldset hidden="hidden" id ="newFields">
-        Date : <input type = "time"><br>
-        Time : <input type = "date"><br>
-        Desc : <input type = "text"><br>
+        Date : <input type = "datetime-local" id = "datetime"><br>
+        Desc : <input type = "text" id = "desc"><br>
     </fieldset>
 
-   <input type="text" name="last_name">
+   <input type="text" id="submitText" name="submitText">
 
    <input type = "button" id ="submit" value="Submit"></>
 
